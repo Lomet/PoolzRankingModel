@@ -1,4 +1,5 @@
 ﻿using PoolzRanking;
+using PoolzRanking.Models;
 using Xunit;
 
 namespace TestPoolzRanking;
@@ -9,13 +10,13 @@ public class RandomWinnersTests
     public void TestRandomWinners()
     {
         // Arrange
-        var allPlayers = new Dictionary<string, decimal>()
+        var allPlayers = new List<SignUp>()
         {
-            { "Alice", 10m },
-            { "Bob", 20m },
-            { "Charlie", 30m },
-            { "David", 40m },
-            { "Eve", 50m }
+            new SignUp { Address = "Alice", Amount = 10m },
+            new SignUp { Address = "Bob", Amount = 20m },
+            new SignUp { Address = "Charlie", Amount = 30m },
+            new SignUp { Address = "David", Amount = 40m },
+            new SignUp { Address = "Eve", Amount = 50m }
         };
         var min = 50m;
         var take = 2;
