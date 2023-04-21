@@ -7,5 +7,4 @@ public class ResultItem : BaseItemModel
         this.Alocation = Alocation; 
     }
     public decimal Alocation { get; set; }
-    public decimal Ratio => Alocation / Amount;
 }

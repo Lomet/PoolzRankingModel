@@ -20,7 +20,7 @@ internal class CSVMaker
         var totalAmounts = results.Sum(T => T.Amount);
         foreach (var result in results)
         {
-            writer.WriteLine($"{result.Address},{result.Amount},{result.Alocation},{result.Ratio},{result.Amount* totalAlocation / totalAmounts}");
+            writer.WriteLine($"{result.Address},{result.Amount},{result.Alocation},{result.Amount* totalAlocation / totalAmounts}");
         }
     }
 

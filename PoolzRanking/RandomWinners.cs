@@ -1,16 +1,18 @@
-﻿namespace PoolzRanking
+﻿using PoolzRanking.Models;
+
+namespace PoolzRanking
 {
     public class RandomWinners
     {
-        public RandomWinners(Dictionary<string, decimal> allPlayers, decimal min, int take, decimal set)
+        public RandomWinners(List<SignUp> allPlayers, decimal min, int take, decimal set)
         {
-            var players = allPlayers.Where(T => T.Value < min);
+            var players = allPlayers.Where(T => T.Amount < min);
             var random = new Random();
-            var shuffledPlayers = players.OrderBy(player => random.Next() * player.Value).ToList();
+            var shuffledPlayers = players.OrderBy(player => random.Next() * player.Amount).ToList();
             for (var i = 0; i < Math.Min(take, players.Count()); i++)
             {
                 var player = shuffledPlayers[i];
-                Results.Add(new ResultItem(player.Key, player.Value, set));
+                Results.Add(new ResultItem(player.Address, player.Amount, set));
             }
         }
 
