@@ -21,6 +21,6 @@ public class RankingModel : Settings
     internal List<CalculationItem> CalculationItems { get; set; } = new List<CalculationItem>();
     public List<ResultItem> GetResults()
     {
-        return CalculationItems.Select(item => new ResultItem(item.Address, item.Amount, item.GetFinalAlocation(TotalAlocation, TotalAmounts, TotalPoints))).ToList();
+        return CalculationItems.Select(item => new ResultItem(item.Rank ,item.Address, item.Amount, item.GetFinalAlocation(TotalAlocation, TotalAmounts, TotalPoints))).ToList();
     }
 }

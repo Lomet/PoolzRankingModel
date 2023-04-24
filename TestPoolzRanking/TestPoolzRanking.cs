@@ -66,7 +66,6 @@ public class TestPoolzRanking
         decimal top = 0.5m;
         decimal bottom = 0.1m;
         int totalItems = 10;
-        var first = 1.75m;
 
         var settings = new Settings(totalAlocation, top, bottom, totalItems);
 
@@ -82,7 +81,7 @@ public class TestPoolzRanking
         decimal amount = 1000m;
         decimal allocation = 0.5m;
 
-        var resultItem = new ResultItem(address, amount, allocation);
+        var resultItem = new ResultItem(1 ,address, amount, allocation);
 
         Assert.Equal(address, resultItem.Address);
         Assert.Equal(amount, resultItem.Amount);
