@@ -8,15 +8,16 @@ public class Program
     {
         Console.WriteLine("Welcome to PoolzRanking");
     }
-    public static string Run(List<SignUp> signups, decimal totalAllocation, decimal top, decimal bot, int min, decimal winnersRatio, int take)
+    public static List<ResultItem> Run(List<SignUp> signUps, InputData inputData)
     {
-        var filterd = signups.Where(T => T.Amount >= min).ToDictionary(kvp => kvp.Address, kvp => kvp.Amount);
-        var testModel = new RankingModel(filterd, totalAllocation, top, bot);
-        var set = testModel.GetResults().Last().Alocation * winnersRatio;
 
-        var rankingModel = new RankingModel(filterd, totalAllocation - take * set, top, bot).GetResults();
-        rankingModel.AddRange(new RandomWinners(signups, min, take, set).Results);
+        var filterd = signUps.Where(T => T.Amount >= inputData.MinAmount).ToDictionary(kvp => kvp.Address, kvp => kvp.Amount);
+        var testModel = new RankingModel(filterd, inputData.TotalAllocation, inputData.Top, inputData.Bot);
+        var set = testModel.GetResults().Last().Alocation * inputData.WinnersRatio;
 
-        return string.Join(Environment.NewLine, rankingModel);
+        var rankingModel = new RankingModel(filterd, inputData.TotalAllocation - inputData.Take * set, inputData.Top, inputData.Bot).GetResults();
+        rankingModel.AddRange(new RandomWinners(signUps, inputData.MinAmount, inputData.Take, set).Results);
+
+        return rankingModel;
     }
 }
