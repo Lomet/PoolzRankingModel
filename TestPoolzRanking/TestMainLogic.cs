@@ -55,12 +55,12 @@ public class TestMainLogic
 
         Assert.Equal(keyValuePairs.Sum(x => x.Value), results.Sum(r=>r.Amount));
         Assert.Equal(keyValuePairs.Count, results.Count);
-        Assert.Equal(totalAllocation, results.Sum(r=>r.Alocation));
+        Assert.Equal(totalAllocation, results.Sum(r=>r.Allocation));
 
         var firstItem = results.First();
         foreach (var item in results.Skip(1))
         {
-            Assert.True(firstItem.Alocation >= item.Alocation);
+            Assert.True(firstItem.Allocation >= item.Allocation);
             Assert.True(firstItem.Amount >= item.Amount);
             firstItem = item;
         }

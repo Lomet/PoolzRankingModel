@@ -10,14 +10,45 @@ public class Program
     }
     public static List<ResultItem> Run(List<SignUp> signUps, InputData inputData)
     {
+        // Filter sign-ups with the minimum amount
+        var filteredSignUps = signUps
+            .Where(s => s.Amount >= inputData.MinAmount)
+            .ToDictionary(kvp => kvp.Address, kvp => kvp.Amount);
 
-        var filterd = signUps.Where(T => T.Amount >= inputData.MinAmount).ToDictionary(kvp => kvp.Address, kvp => kvp.Amount);
-        var testModel = new RankingModel(filterd, inputData.TotalAllocation, inputData.Top, inputData.Bot);
-        var set = testModel.GetResults().Last().Alocation * inputData.WinnersRatio;
+        var rankingModel = new RankingModel(
+            filteredSignUps,
+            inputData.TotalAllocation,
+            inputData.Top,
+            inputData.Bot
+        );
 
-        var rankingModel = new RankingModel(filterd, inputData.TotalAllocation - inputData.Take * set, inputData.Top, inputData.Bot).GetResults();
-        rankingModel.AddRange(new RandomWinners(signUps, inputData.MinAmount, inputData.Take, set).Results);
+        // Calculate the allocation for winners
+        var allocationForWinners = rankingModel.GetResults().Last().Allocation * inputData.WinnersRatio;
+        // Calculate the number of random winners to take
+        int randomWinnersToTake = Math.Min(inputData.Take, signUps.Count - filteredSignUps.Count);
+        // If there are no random winners, return the results from the ranking model
+        if (randomWinnersToTake == 0)
+        {
+            return rankingModel.GetResults();
+        }
+        // Otherwise, calculate the results for the filtered sign-ups
+        var finalResults = new RankingModel(
+            filteredSignUps,
+            inputData.TotalAllocation - randomWinnersToTake * allocationForWinners,
+            inputData.Top,
+            inputData.Bot
+        ).GetResults();
 
-        return rankingModel;
+        // Add random winners to the final results
+        finalResults.AddRange(
+            new RandomWinners(
+                signUps,
+                inputData.MinAmount,
+                randomWinnersToTake,
+                allocationForWinners
+            ).Results
+        );
+
+        return finalResults;
     }
 }

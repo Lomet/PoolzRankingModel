@@ -27,7 +27,7 @@ public class RandomWinnersTests
 
         // Assert
         Assert.Equal(2, winners.Results.Count);
-        Assert.Equal(100m, winners.Results[0].Alocation);
-        Assert.Equal(100m, winners.Results[1].Alocation);
+        Assert.Equal(100m, winners.Results[0].Allocation);
+        Assert.Equal(100m, winners.Results[1].Allocation);
     }
 }

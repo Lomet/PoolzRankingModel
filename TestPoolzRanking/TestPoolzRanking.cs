@@ -85,6 +85,6 @@ public class TestPoolzRanking
 
         Assert.Equal(address, resultItem.Address);
         Assert.Equal(amount, resultItem.Amount);
-        Assert.Equal(allocation, resultItem.Alocation);
+        Assert.Equal(allocation, resultItem.Allocation);
     }
 }
